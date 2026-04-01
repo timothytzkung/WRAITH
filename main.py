@@ -27,6 +27,7 @@ OLLAMA_MODEL = "mistral-nemo"          # Change to any model you have pulled
 OLLAMA_URL   = "http://127.0.0.1:11434/api/chat"   # switched to /api/chat for multi-turn
 MAX_HISTORY  = 50                # How many URLs to send to the LLM
 WRAITH_SPEAK = SamTTS(speed=52, pitch=85, mouth=128, throat=132)
+MAX_WAIT_TIME = 300 # How long to wait for LLM to generate before time out.
 
 USER_NAME = os.environ.get('USER', os.environ.get('USERNAME'))
  
@@ -200,7 +201,7 @@ def ask_ollama_chat(system, messages):
                 "stream": False,
                 "options": {"temperature": 0.9, "top_p": 0.95},
             },
-            timeout=100,
+            timeout=MAX_WAIT_TIME,
         )
         resp.raise_for_status()
         return resp.json().get("message", {}).get("content", "").strip()
