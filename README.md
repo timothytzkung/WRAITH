@@ -100,7 +100,9 @@ ollama pull mistral-nemo
 ollama serve
 
 # 3. Install Python dependencies
-pip install requirements.txt
+python -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
 
 # 4. Run the experience
 python run.py
